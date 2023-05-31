@@ -29,7 +29,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: the-artfact-data
-          path: artifact-data
+          path: |
+            dist
+            package.json
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
