@@ -28,7 +28,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: the-artfact-data
+          name: the-artifact-data
           path: dist
 
   deploy:
