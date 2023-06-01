@@ -29,7 +29,7 @@ jobs:
         run: npm run build
       - name: Publish JS filename
         id: published
-        run: find dist/assets/*.js -type -f -execdir echo 'scripty-faiel={}' >> $GITHUB_OUTPUT ';'
+        run: find dist/assets/*.js -type f -execdir echo 'scripty-faiel={}' >> $GITHUB_OUTPUT ';'
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
