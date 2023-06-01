@@ -18,6 +18,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      scripty-faiel: ${{ steps.published.outputs.scripty-faiel }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -25,12 +27,14 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Publish JS filename
+        id: published
+        run: find dist/assets/*.js -type -f -execdir echo 'scripty-faiel={}' >> $GITHUB_OUTPUT ';'
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: the-artifact-data
           path: dist
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -41,5 +45,7 @@ jobs:
           name: the-artifact-data
       - name: Output contents
         run: ls
+      - name: Output filename
+        run: echo "${{ needs.build.outputs.scripty-faiel }}"
       - name: Deploy
         run: echo "Deploying..."
